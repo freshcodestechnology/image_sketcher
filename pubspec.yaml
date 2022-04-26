@@ -1,0 +1,29 @@
+name: image_sketcher
+description: Draw sketch on image & Signature creator with customized tool
+version: 0.0.1
+homepage: https://github.com/freshcodestechnology/image_sketcher.git
+
+environment:
+  sdk: ">=2.16.1 <3.0.0"
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  vector_math: ^2.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.freshcodes.image_sketcher
+        pluginClass: ImageSketcherPlugin
+      ios:
+        pluginClass: ImageSketcherPlugin
+      windows:
+        pluginClass: ImageSketcherPlugin

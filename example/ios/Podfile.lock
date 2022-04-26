@@ -1,0 +1,34 @@
+PODS:
+  - Flutter (1.0.0)
+  - image_sketcher (0.0.1):
+    - Flutter
+  - open_file (0.0.1):
+    - Flutter
+  - path_provider_ios (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - image_sketcher (from `.symlinks/plugins/image_sketcher/ios`)
+  - open_file (from `.symlinks/plugins/open_file/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  image_sketcher:
+    :path: ".symlinks/plugins/image_sketcher/ios"
+  open_file:
+    :path: ".symlinks/plugins/open_file/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  image_sketcher: 6cc7fe2a589445450a711c098f56079cd51546eb
+  open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.1
