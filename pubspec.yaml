@@ -1,6 +1,6 @@
 name: image_sketcher
 description: Draw sketch on image & Signature creator with customized tool
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/freshcodestechnology/image_sketcher.git
 
 environment:

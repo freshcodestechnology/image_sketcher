@@ -17,7 +17,7 @@ import 'widgets/_text_dialog.dart';
 
 export '_image_painter.dart';
 
-enum ControlPosition { Top, Bottom, Overlay }
+enum ControllerAxis { horizontal, vertical }
 
 ///[ImageSketcher] widget.
 @immutable
@@ -33,6 +33,8 @@ class ImageSketcher extends StatefulWidget {
       this.enableColorSelection = true,
       this.enableBrush = true,
       this.enableText = true,
+      this.enableUndo = true,
+      this.enableClear = true,
       this.customToolItems = const [],
       this.height,
       this.width,
@@ -43,7 +45,14 @@ class ImageSketcher extends StatefulWidget {
       this.colorIcon,
       this.undoIcon,
       this.isSignature = false,
-      this.controlPosition = ControlPosition.Top,
+      this.controllerPosition = Alignment.topCenter,
+      this.isControllerOverlay = false,
+      this.controllerAxis = ControllerAxis.vertical,
+      this.controllerDecoration,
+      this.controllerHeight,
+      this.controllerWidth,
+      this.controllerPadding,
+      this.controllerMargin,
       this.signatureBackgroundColor,
       this.colors,
       this.initialPaintMode,
@@ -64,6 +73,8 @@ class ImageSketcher extends StatefulWidget {
     bool enableColorSelection = true,
     bool enableBrush = true,
     bool enableText = true,
+    bool enableUndo = true,
+    bool enableClear = true,
     List<Widget> customToolItems = const [],
     double? height,
     double? width,
@@ -81,7 +92,14 @@ class ImageSketcher extends StatefulWidget {
     ValueChanged<Color>? onColorChanged,
     ValueChanged<double>? onStrokeWidthChanged,
     TextDelegate? textDelegate,
-    ControlPosition controlPosition = ControlPosition.Top,
+    AlignmentGeometry controlPosition = Alignment.topCenter,
+    bool isControllerOverlay = false,
+    ControllerAxis controllerAxis = ControllerAxis.vertical,
+    BoxDecoration? controllerDecoration,
+    double? controllerHeight,
+    double? controllerWidth,
+    EdgeInsetsGeometry? controllerPadding,
+    EdgeInsetsGeometry? controllerMargin,
   }) {
     return ImageSketcher._(
       key: key,
@@ -91,6 +109,8 @@ class ImageSketcher extends StatefulWidget {
       enableColorSelection: enableColorSelection,
       enableBrush: enableBrush,
       enableText: enableText,
+      enableUndo: enableUndo,
+      enableClear: enableClear,
       customToolItems: customToolItems,
       height: height,
       width: width,
@@ -108,7 +128,14 @@ class ImageSketcher extends StatefulWidget {
       onColorChanged: onColorChanged,
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
-      controlPosition: controlPosition,
+      controllerPosition: controlPosition,
+      isControllerOverlay: isControllerOverlay,
+      controllerAxis: controllerAxis,
+      controllerDecoration: controllerDecoration,
+      controllerHeight: controllerHeight,
+      controllerWidth: controllerWidth,
+      controllerPadding: controllerPadding,
+      controllerMargin: controllerMargin,
     );
   }
 
@@ -121,6 +148,8 @@ class ImageSketcher extends StatefulWidget {
     bool enableColorSelection = true,
     bool enableBrush = true,
     bool enableText = true,
+    bool enableUndo = true,
+    bool enableClear = true,
     List<Widget> customToolItems = const [],
     double? height,
     double? width,
@@ -138,7 +167,14 @@ class ImageSketcher extends StatefulWidget {
     ValueChanged<Color>? onColorChanged,
     ValueChanged<double>? onStrokeWidthChanged,
     TextDelegate? textDelegate,
-    ControlPosition controlPosition = ControlPosition.Top,
+    AlignmentGeometry controlPosition = Alignment.topCenter,
+    bool isControllerOverlay = false,
+    ControllerAxis controllerAxis = ControllerAxis.vertical,
+    BoxDecoration? controllerDecoration,
+    double? controllerHeight,
+    double? controllerWidth,
+    EdgeInsetsGeometry? controllerPadding,
+    EdgeInsetsGeometry? controllerMargin,
   }) {
     return ImageSketcher._(
       key: key,
@@ -148,6 +184,8 @@ class ImageSketcher extends StatefulWidget {
       enableColorSelection: enableColorSelection,
       enableBrush: enableBrush,
       enableText: enableText,
+      enableUndo: enableUndo,
+      enableClear: enableClear,
       customToolItems: customToolItems,
       height: height,
       width: width,
@@ -165,7 +203,14 @@ class ImageSketcher extends StatefulWidget {
       onColorChanged: onColorChanged,
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
-      controlPosition: controlPosition,
+      controllerPosition: controlPosition,
+      isControllerOverlay: isControllerOverlay,
+      controllerAxis: controllerAxis,
+      controllerDecoration: controllerDecoration,
+      controllerHeight: controllerHeight,
+      controllerWidth: controllerWidth,
+      controllerPadding: controllerPadding,
+      controllerMargin: controllerMargin,
     );
   }
 
@@ -178,6 +223,8 @@ class ImageSketcher extends StatefulWidget {
     bool enableColorSelection = true,
     bool enableBrush = true,
     bool enableText = true,
+    bool enableUndo = true,
+    bool enableClear = true,
     List<Widget> customToolItems = const [],
     double? height,
     double? width,
@@ -195,7 +242,14 @@ class ImageSketcher extends StatefulWidget {
     ValueChanged<Color>? onColorChanged,
     ValueChanged<double>? onStrokeWidthChanged,
     TextDelegate? textDelegate,
-    ControlPosition controlPosition = ControlPosition.Top,
+    AlignmentGeometry controlPosition = Alignment.topCenter,
+    bool isControllerOverlay = false,
+    ControllerAxis controllerAxis = ControllerAxis.vertical,
+    BoxDecoration? controllerDecoration,
+    double? controllerHeight,
+    double? controllerWidth,
+    EdgeInsetsGeometry? controllerPadding,
+    EdgeInsetsGeometry? controllerMargin,
   }) {
     return ImageSketcher._(
       key: key,
@@ -205,6 +259,8 @@ class ImageSketcher extends StatefulWidget {
       enableColorSelection: enableColorSelection,
       enableBrush: enableBrush,
       enableText: enableText,
+      enableUndo: enableUndo,
+      enableClear: enableClear,
       customToolItems: customToolItems,
       height: height,
       width: width,
@@ -222,7 +278,14 @@ class ImageSketcher extends StatefulWidget {
       onColorChanged: onColorChanged,
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
-      controlPosition: controlPosition,
+      controllerPosition: controlPosition,
+      isControllerOverlay: isControllerOverlay,
+      controllerAxis: controllerAxis,
+      controllerDecoration: controllerDecoration,
+      controllerHeight: controllerHeight,
+      controllerWidth: controllerWidth,
+      controllerPadding: controllerPadding,
+      controllerMargin: controllerMargin,
     );
   }
 
@@ -235,6 +298,8 @@ class ImageSketcher extends StatefulWidget {
     bool enableColorSelection = true,
     bool enableBrush = true,
     bool enableText = true,
+    bool enableUndo = true,
+    bool enableClear = true,
     List<Widget> customToolItems = const [],
     double? height,
     double? width,
@@ -252,7 +317,14 @@ class ImageSketcher extends StatefulWidget {
     ValueChanged<Color>? onColorChanged,
     ValueChanged<double>? onStrokeWidthChanged,
     TextDelegate? textDelegate,
-    ControlPosition controlPosition = ControlPosition.Top,
+    AlignmentGeometry controlPosition = Alignment.topCenter,
+    bool isControllerOverlay = false,
+    ControllerAxis controllerAxis = ControllerAxis.vertical,
+    BoxDecoration? controllerDecoration,
+    double? controllerHeight,
+    double? controllerWidth,
+    EdgeInsetsGeometry? controllerPadding,
+    EdgeInsetsGeometry? controllerMargin,
   }) {
     return ImageSketcher._(
       key: key,
@@ -262,6 +334,8 @@ class ImageSketcher extends StatefulWidget {
       enableColorSelection: enableColorSelection,
       enableBrush: enableBrush,
       enableText: enableText,
+      enableUndo: enableUndo,
+      enableClear: enableClear,
       customToolItems: customToolItems,
       height: height,
       width: width,
@@ -279,7 +353,14 @@ class ImageSketcher extends StatefulWidget {
       onColorChanged: onColorChanged,
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
-      controlPosition: controlPosition,
+      controllerPosition: controlPosition,
+      isControllerOverlay: isControllerOverlay,
+      controllerAxis: controllerAxis,
+      controllerDecoration: controllerDecoration,
+      controllerHeight: controllerHeight,
+      controllerWidth: controllerWidth,
+      controllerPadding: controllerPadding,
+      controllerMargin: controllerMargin,
     );
   }
 
@@ -345,6 +426,12 @@ class ImageSketcher extends StatefulWidget {
   ///Enable/Disable Text
   final bool enableText;
 
+  ///Enable/Disable Undo
+  final bool enableUndo;
+
+  ///Enable/Disable Clear
+  final bool enableClear;
+
   ///Custom toolbar item widgets
   final List<Widget> customToolItems;
 
@@ -383,7 +470,28 @@ class ImageSketcher extends StatefulWidget {
   final Widget? clearAllIcon;
 
   ///Control position.
-  final ControlPosition controlPosition;
+  final AlignmentGeometry controllerPosition;
+
+  ///Control position.
+  final bool isControllerOverlay;
+
+  ///Control position.
+  final ControllerAxis controllerAxis;
+
+  ///Control position.
+  final BoxDecoration? controllerDecoration;
+
+  ///Control height.
+  final double? controllerHeight;
+
+  ///Control width.
+  final double? controllerWidth;
+
+  ///Control width.
+  final EdgeInsetsGeometry? controllerPadding;
+
+  ///Control width.
+  final EdgeInsetsGeometry? controllerMargin;
 
   ///Initial PaintMode.
   final PaintMode? initialPaintMode;
@@ -430,10 +538,13 @@ class ImageSketcherState extends State<ImageSketcher> {
       _controller = ValueNotifier(
           const Controller(mode: PaintMode.freeStyle, color: Colors.black));
     } else {
-      _controller = ValueNotifier(const Controller().copyWith(
+      _controller = ValueNotifier(
+        const Controller().copyWith(
           mode: widget.initialPaintMode,
           strokeWidth: widget.initialStrokeWidth,
-          color: widget.initialColor));
+          color: widget.initialColor,
+        ),
+      );
     }
     _textController = TextEditingController();
     textDelegate = widget.textDelegate ?? TextDelegate();
@@ -445,6 +556,13 @@ class ImageSketcherState extends State<ImageSketcher> {
     _isLoaded.dispose();
     _textController.dispose();
     super.dispose();
+  }
+
+  void updateColor(Color color){
+    _controller.value = _controller.value.copyWith(color: color);
+    if (widget.onColorChanged != null) {
+      widget.onColorChanged!(color);
+    }
   }
 
   Paint get _painter => Paint()
@@ -549,14 +667,28 @@ class ImageSketcherState extends State<ImageSketcher> {
           width: widget.width ?? double.maxFinite,
           child: Column(
             children: [
-              if (widget.controlPosition == ControlPosition.Top)
-                _buildControls(
-                  controlBarColor: widget.toolbarBGColor,
-                  enableControlMode: widget.enableControlMode,
-                  enableColorSelection: widget.enableColorSelection,
-                  enableBrush: widget.enableBrush,
-                  enableText: widget.enableText,
-                  customToolItems: widget.customToolItems,
+              if (!widget.isControllerOverlay &&
+                  (widget.controllerPosition == Alignment.topLeft ||
+                      widget.controllerPosition == Alignment.topCenter ||
+                      widget.controllerPosition == Alignment.topRight))
+                Align(
+                  alignment: widget.controllerPosition,
+                  child: _buildControls(
+                    controlBarColor: widget.toolbarBGColor,
+                    enableControlMode: widget.enableControlMode,
+                    enableColorSelection: widget.enableColorSelection,
+                    enableBrush: widget.enableBrush,
+                    enableText: widget.enableText,
+                    enableUndo: widget.enableUndo,
+                    enableClear: widget.enableClear,
+                    customToolItems: widget.customToolItems,
+                    controllerAxis: widget.controllerAxis,
+                    controllerDecoration: widget.controllerDecoration,
+                    height: widget.controllerHeight,
+                    width: widget.controllerWidth,
+                    padding: widget.controllerPadding,
+                    margin: widget.controllerMargin,
+                  ),
                 ),
               Expanded(
                 child: FittedBox(
@@ -597,27 +729,51 @@ class ImageSketcherState extends State<ImageSketcher> {
                   ),
                 ),
               ),
-              if (widget.controlPosition == ControlPosition.Bottom)
-                _buildControls(
-                  controlBarColor: widget.toolbarBGColor,
-                  enableControlMode: widget.enableControlMode,
-                  enableColorSelection: widget.enableColorSelection,
-                  enableBrush: widget.enableBrush,
-                  enableText: widget.enableText,
-                  customToolItems: widget.customToolItems,
+              if (!widget.isControllerOverlay &&
+                  (widget.controllerPosition == Alignment.bottomLeft ||
+                      widget.controllerPosition == Alignment.bottomCenter ||
+                      widget.controllerPosition == Alignment.bottomRight))
+                Align(
+                  alignment: widget.controllerPosition,
+                  child: _buildControls(
+                    controlBarColor: widget.toolbarBGColor,
+                    enableControlMode: widget.enableControlMode,
+                    enableColorSelection: widget.enableColorSelection,
+                    enableBrush: widget.enableBrush,
+                    enableText: widget.enableText,
+                    enableUndo: widget.enableUndo,
+                    enableClear: widget.enableClear,
+                    customToolItems: widget.customToolItems,
+                    controllerAxis: widget.controllerAxis,
+                    controllerDecoration: widget.controllerDecoration,
+                    height: widget.controllerHeight,
+                    width: widget.controllerWidth,
+                    padding: widget.controllerPadding,
+                    margin: widget.controllerMargin,
+                  ),
                 ),
-              SizedBox(height: MediaQuery.of(context).padding.bottom)
             ],
           ),
         ),
-        if (widget.controlPosition == ControlPosition.Overlay)
-          _buildControls(
-            controlBarColor: widget.toolbarBGColor,
-            enableControlMode: widget.enableControlMode,
-            enableColorSelection: widget.enableColorSelection,
-            enableBrush: widget.enableBrush,
-            enableText: widget.enableText,
-            customToolItems: widget.customToolItems,
+        if (widget.isControllerOverlay)
+          Align(
+            alignment: widget.controllerPosition,
+            child: _buildControls(
+              controlBarColor: widget.toolbarBGColor,
+              enableControlMode: widget.enableControlMode,
+              enableColorSelection: widget.enableColorSelection,
+              enableBrush: widget.enableBrush,
+              enableText: widget.enableText,
+              enableUndo: widget.enableUndo,
+              enableClear: widget.enableClear,
+              customToolItems: widget.customToolItems,
+              controllerAxis: widget.controllerAxis,
+              controllerDecoration: widget.controllerDecoration,
+              height: widget.controllerHeight,
+              width: widget.controllerWidth,
+              padding: widget.controllerPadding,
+              margin: widget.controllerMargin,
+            ),
           ),
       ],
     );
@@ -629,7 +785,7 @@ class ImageSketcherState extends State<ImageSketcher> {
         RepaintBoundary(
           key: _repaintKey,
           child: ClipRect(
-            child: Container(
+            child: SizedBox(
               width: widget.width ?? double.maxFinite,
               height: widget.height ?? double.maxFinite,
               child: ValueListenableBuilder<Controller>(
@@ -892,91 +1048,110 @@ class ImageSketcherState extends State<ImageSketcher> {
     });
   }
 
-  Widget _buildControls(
-      {Color? controlBarColor,
-      bool enableControlMode = true,
-      bool enableColorSelection = true,
-      bool enableBrush = true,
-      bool enableText = true,
-      List<Widget> customToolItems = const []}) {
-    return Container(
-      padding: const EdgeInsets.all(4),
-      color: controlBarColor ?? Colors.transparent,
-      child: Row(
-        children: [
-          if (enableControlMode)
-            ValueListenableBuilder<Controller>(
-                valueListenable: _controller,
-                builder: (_, _ctrl, __) {
-                  return PopupMenuButton(
-                    tooltip: textDelegate.changeMode,
-                    shape: ContinuousRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
+  Widget _buildControls({
+    Color? controlBarColor,
+    bool enableControlMode = true,
+    bool enableColorSelection = true,
+    bool enableBrush = true,
+    bool enableText = true,
+    bool enableUndo = true,
+    bool enableClear = true,
+    List<Widget> customToolItems = const [],
+    ControllerAxis controllerAxis = ControllerAxis.vertical,
+    BoxDecoration? controllerDecoration,
+    double? height,
+    double? width,
+    EdgeInsetsGeometry? padding = const EdgeInsets.all(4),
+    EdgeInsetsGeometry? margin,
+  }) {
+    List<Widget> items = [
+      if (enableControlMode)
+        ValueListenableBuilder<Controller>(
+            valueListenable: _controller,
+            builder: (_, _ctrl, __) {
+              return PopupMenuButton(
+                tooltip: textDelegate.changeMode,
+                shape: ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                icon: Icon(
+                    paintModes(textDelegate)
+                        .firstWhere((item) => item.mode == _ctrl.mode)
+                        .icon,
+                    color: Colors.grey[700]),
+                itemBuilder: (_) => [_showOptionsRow(_ctrl)],
+              );
+            }),
+      if (enableColorSelection)
+        ValueListenableBuilder<Controller>(
+            valueListenable: _controller,
+            builder: (_, controller, __) {
+              return PopupMenuButton(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                shape: ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                tooltip: textDelegate.changeColor,
+                icon: widget.colorIcon ??
+                    Container(
+                      padding: const EdgeInsets.all(2.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.grey),
+                        color: controller.color,
+                      ),
                     ),
-                    icon: Icon(
-                        paintModes(textDelegate)
-                            .firstWhere((item) => item.mode == _ctrl.mode)
-                            .icon,
-                        color: Colors.grey[700]),
-                    itemBuilder: (_) => [_showOptionsRow(_ctrl)],
-                  );
-                }),
-          if (enableColorSelection)
-            ValueListenableBuilder<Controller>(
-                valueListenable: _controller,
-                builder: (_, controller, __) {
-                  return PopupMenuButton(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    shape: ContinuousRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    tooltip: textDelegate.changeColor,
-                    icon: widget.colorIcon ??
-                        Container(
-                          padding: const EdgeInsets.all(2.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.grey),
-                            color: controller.color,
-                          ),
-                        ),
-                    itemBuilder: (_) => [_showColorPicker(controller)],
-                  );
-                }),
-          if (enableBrush)
-            PopupMenuButton(
-              tooltip: textDelegate.changeBrushSize,
-              shape: ContinuousRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              icon: widget.brushIcon ??
-                  Icon(Icons.brush, color: Colors.grey[700]),
-              itemBuilder: (_) => [_showRangeSlider()],
-            ),
-          if (enableText)
-            IconButton(
-                icon: const Icon(Icons.text_format),
-                onPressed: _openTextDialog),
-          const Spacer(),
-          IconButton(
-              tooltip: textDelegate.undo,
-              icon:
-                  widget.undoIcon ?? Icon(Icons.reply, color: Colors.grey[700]),
-              onPressed: () {
-                print(_paintHistory.length);
-                if (_paintHistory.isNotEmpty) {
-                  setState(_paintHistory.removeLast);
-                }
-              }),
-          IconButton(
-            tooltip: textDelegate.clearAllProgress,
-            icon: widget.clearAllIcon ??
-                Icon(Icons.clear, color: Colors.grey[700]),
-            onPressed: () => setState(_paintHistory.clear),
+                itemBuilder: (_) => [_showColorPicker(controller)],
+              );
+            }),
+      if (enableBrush)
+        PopupMenuButton(
+          tooltip: textDelegate.changeBrushSize,
+          shape: ContinuousRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-          if (customToolItems.isNotEmpty) ...customToolItems,
-        ],
-      ),
+          icon: widget.brushIcon ?? Icon(Icons.brush, color: Colors.grey[700]),
+          itemBuilder: (_) => [_showRangeSlider()],
+        ),
+      if (enableText)
+        IconButton(
+            icon: const Icon(Icons.text_format), onPressed: _openTextDialog),
+      const Spacer(),
+      if (enableUndo)
+        IconButton(
+            tooltip: textDelegate.undo,
+            icon: widget.undoIcon ?? Icon(Icons.reply, color: Colors.grey[700]),
+            onPressed: () {
+              print(_paintHistory.length);
+              if (_paintHistory.isNotEmpty) {
+                setState(_paintHistory.removeLast);
+              }
+            }),
+      if (enableClear)
+        IconButton(
+          tooltip: textDelegate.clearAllProgress,
+          icon:
+              widget.clearAllIcon ?? Icon(Icons.clear, color: Colors.grey[700]),
+          onPressed: () => setState(_paintHistory.clear),
+        ),
+      if (customToolItems.isNotEmpty) ...customToolItems,
+    ];
+    return Container(
+      padding: padding,
+      color: controllerDecoration == null
+          ? controlBarColor ?? Colors.transparent
+          : null,
+      decoration: controllerDecoration,
+      height: height,
+      width: width,
+      margin: margin,
+      child: controllerAxis == ControllerAxis.vertical
+          ? Row(
+              children: items,
+            )
+          : Column(
+              children: items,
+            ),
     );
   }
 }

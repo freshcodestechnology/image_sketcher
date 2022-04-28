@@ -36,6 +36,8 @@ class _SketcherExampleState extends State<SketcherExample> {
   final _imageKey = GlobalKey<ImageSketcherState>();
   final _key = GlobalKey<ScaffoldState>();
 
+  Color color = Colors.green;
+
   void saveImage() async {
     final image = await _imageKey.currentState?.exportImage();
     final directory = (await getApplicationDocumentsDirectory()).path;
@@ -81,18 +83,58 @@ class _SketcherExampleState extends State<SketcherExample> {
         key: _imageKey,
         scalable: true,
         initialStrokeWidth: 2,
-        initialColor: Colors.green,
+        initialColor: color,
         initialPaintMode: PaintMode.freeStyle,
-        controlPosition: ControlPosition.Overlay,
+        controlPosition: Alignment.bottomLeft,
+        isControllerOverlay: true,
+        controllerAxis: ControllerAxis.horizontal,
+        controllerDecoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(50),
+        ),
+        controllerMargin: EdgeInsets.all(10),
         toolbarBGColor: Colors.white,
         enableControlMode: false,
         enableBrush: false,
         enableText: false,
+        enableClear: false,
+        enableColorSelection: false,
+        controllerHeight: 250,
         customToolItems: [
           IconButton(
             onPressed: saveImage,
             icon: const Icon(Icons.check),
-          )
+          ),
+          IconButton(
+            onPressed: () {
+              _imageKey.currentState?.updateColor(Colors.red);
+            },
+            icon: const Icon(
+              Icons.circle,
+              color: Colors.red,
+              size: 32,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              _imageKey.currentState?.updateColor(Colors.green);
+            },
+            icon: const Icon(
+              Icons.circle,
+              color: Colors.green,
+              size: 32,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              _imageKey.currentState?.updateColor(Colors.yellow);
+            },
+            icon: const Icon(
+              Icons.circle,
+              color: Colors.yellow,
+              size: 32,
+            ),
+          ),
         ],
       ),
     );
