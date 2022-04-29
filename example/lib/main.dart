@@ -78,94 +78,104 @@ class _SketcherExampleState extends State<SketcherExample> {
         title: const Text("Sketcher Example"),
       ),
       backgroundColor: Colors.grey,
-      body: ImageSketcher.asset(
-        "assets/sample.jpeg",
-        key: _imageKey,
-        scalable: true,
-        initialStrokeWidth: 2,
-        initialColor: color,
-        initialPaintMode: PaintMode.freeStyle,
-        controlPosition: Alignment.bottomLeft,
-        isControllerOverlay: true,
-        controllerAxis: ControllerAxis.horizontal,
-        controllerDecoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(50),
-        ),
-        controllerMargin: EdgeInsets.all(10),
-        toolbarBGColor: Colors.white,
-        enableControlMode: false,
-        enableBrush: false,
-        enableText: false,
-        enableClear: false,
-        enableColorSelection: false,
-        enableUndo: false,
-        controllerHeight: 450,
-        customToolItems: [
-          IconButton(
-            onPressed: () {
-              _imageKey.currentState?.clearAll();
-            },
-            icon: const Icon(Icons.clear),
-          ),
-          IconButton(
-            onPressed: () {
-              _imageKey.currentState?.undo();
-            },
-            icon: const Icon(Icons.undo),
-          ),
-          IconButton(
-            onPressed: () {
-              _imageKey.currentState?.changePaintMode(PaintMode.line);
-            },
-            icon: const Icon(Icons.mode_edit),
-          ),
-          IconButton(
-            onPressed: () {
-              _imageKey.currentState?.changeBrushWidth(50);
-            },
-            icon: const Icon(Icons.brush),
-          ),
-          IconButton(
-            onPressed: () {
-              _imageKey.currentState?.addText('Abcd');
-            },
-            icon: const Icon(Icons.text_fields),
-          ),
-          IconButton(
-            onPressed: saveImage,
-            icon: const Icon(Icons.check),
-          ),
-          IconButton(
-            onPressed: () {
-              _imageKey.currentState?.updateColor(Colors.red);
-            },
-            icon: const Icon(
-              Icons.circle,
-              color: Colors.red,
-              size: 32,
+      body: Stack(
+        children: [
+          ImageSketcher.asset(
+            "assets/sample.jpeg",
+            key: _imageKey,
+            scalable: true,
+            initialStrokeWidth: 2,
+            initialColor: color,
+            initialPaintMode: PaintMode.freeStyle,
+            controlPosition: Alignment.topCenter,
+            isControllerOverlay: true,
+            controllerAxis: ControllerAxis.vertical,
+            controllerDecoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(50),
             ),
+            controllerMargin: EdgeInsets.all(10),
+            toolbarBGColor: Colors.white,
           ),
-          IconButton(
-            onPressed: () {
-              _imageKey.currentState?.updateColor(Colors.green);
-            },
-            icon: const Icon(
-              Icons.circle,
-              color: Colors.green,
-              size: 32,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              margin: EdgeInsets.only(left: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      _imageKey.currentState?.clearAll();
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _imageKey.currentState?.undo();
+                    },
+                    icon: const Icon(Icons.undo),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _imageKey.currentState?.changePaintMode(PaintMode.line);
+                    },
+                    icon: const Icon(Icons.mode_edit),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _imageKey.currentState?.changeBrushWidth(20);
+                    },
+                    icon: const Icon(Icons.brush),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _imageKey.currentState?.addText('Abcd');
+                    },
+                    icon: const Icon(Icons.text_fields),
+                  ),
+                  IconButton(
+                    onPressed: saveImage,
+                    icon: const Icon(Icons.check),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _imageKey.currentState?.updateColor(Colors.red);
+                    },
+                    icon: const Icon(
+                      Icons.circle,
+                      color: Colors.red,
+                      size: 32,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _imageKey.currentState?.updateColor(Colors.green);
+                    },
+                    icon: const Icon(
+                      Icons.circle,
+                      color: Colors.green,
+                      size: 32,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _imageKey.currentState?.updateColor(Colors.yellow);
+                    },
+                    icon: const Icon(
+                      Icons.circle,
+                      color: Colors.yellow,
+                      size: 32,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () {
-              _imageKey.currentState?.updateColor(Colors.yellow);
-            },
-            icon: const Icon(
-              Icons.circle,
-              color: Colors.yellow,
-              size: 32,
-            ),
-          ),
+          )
         ],
       ),
     );
