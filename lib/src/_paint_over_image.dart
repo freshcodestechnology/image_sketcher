@@ -28,6 +28,7 @@ class ImageSketcher extends StatefulWidget {
       this.networkUrl,
       this.byteArray,
       this.file,
+      this.enableToolbar = true,
       this.toolbarBGColor,
       this.enableControlMode = true,
       this.enableColorSelection = true,
@@ -68,6 +69,7 @@ class ImageSketcher extends StatefulWidget {
   factory ImageSketcher.network(
     String url, {
     required Key key,
+    bool enableToolbar = true,
     Color? toolbarBGColor,
     bool enableControlMode = true,
     bool enableColorSelection = true,
@@ -104,6 +106,7 @@ class ImageSketcher extends StatefulWidget {
     return ImageSketcher._(
       key: key,
       networkUrl: url,
+      enableToolbar: enableToolbar,
       toolbarBGColor: toolbarBGColor,
       enableControlMode: enableControlMode,
       enableColorSelection: enableColorSelection,
@@ -143,6 +146,7 @@ class ImageSketcher extends StatefulWidget {
   factory ImageSketcher.asset(
     String path, {
     required Key key,
+    bool enableToolbar = true,
     Color? toolbarBGColor,
     bool enableControlMode = true,
     bool enableColorSelection = true,
@@ -179,6 +183,7 @@ class ImageSketcher extends StatefulWidget {
     return ImageSketcher._(
       key: key,
       assetPath: path,
+      enableToolbar: enableToolbar,
       toolbarBGColor: toolbarBGColor,
       enableControlMode: enableControlMode,
       enableColorSelection: enableColorSelection,
@@ -218,6 +223,7 @@ class ImageSketcher extends StatefulWidget {
   factory ImageSketcher.file(
     File file, {
     required Key key,
+    bool enableToolbar = true,
     Color? toolbarBGColor,
     bool enableControlMode = true,
     bool enableColorSelection = true,
@@ -254,6 +260,7 @@ class ImageSketcher extends StatefulWidget {
     return ImageSketcher._(
       key: key,
       file: file,
+      enableToolbar: enableToolbar,
       toolbarBGColor: toolbarBGColor,
       enableControlMode: enableControlMode,
       enableColorSelection: enableColorSelection,
@@ -293,6 +300,7 @@ class ImageSketcher extends StatefulWidget {
   factory ImageSketcher.memory(
     Uint8List byteArray, {
     required Key key,
+    bool enableToolbar = true,
     Color? toolbarBGColor,
     bool enableControlMode = true,
     bool enableColorSelection = true,
@@ -329,6 +337,7 @@ class ImageSketcher extends StatefulWidget {
     return ImageSketcher._(
       key: key,
       byteArray: byteArray,
+      enableToolbar: enableToolbar,
       toolbarBGColor: toolbarBGColor,
       enableControlMode: enableControlMode,
       enableColorSelection: enableColorSelection,
@@ -410,6 +419,9 @@ class ImageSketcher extends StatefulWidget {
 
   ///Only accessible through [ImagePainter.asset] constructor.
   final String? assetPath;
+
+  ///Toolbar background color
+  final bool enableToolbar;
 
   ///Toolbar background color
   final Color? toolbarBGColor;
@@ -558,13 +570,6 @@ class ImageSketcherState extends State<ImageSketcher> {
     super.dispose();
   }
 
-  void updateColor(Color color){
-    _controller.value = _controller.value.copyWith(color: color);
-    if (widget.onColorChanged != null) {
-      widget.onColorChanged!(color);
-    }
-  }
-
   Paint get _painter => Paint()
     ..color = _controller.value.color
     ..strokeWidth = _controller.value.strokeWidth * _strokeMultiplier
@@ -667,7 +672,8 @@ class ImageSketcherState extends State<ImageSketcher> {
           width: widget.width ?? double.maxFinite,
           child: Column(
             children: [
-              if (!widget.isControllerOverlay &&
+              if (widget.enableToolbar &&
+                  !widget.isControllerOverlay &&
                   (widget.controllerPosition == Alignment.topLeft ||
                       widget.controllerPosition == Alignment.topCenter ||
                       widget.controllerPosition == Alignment.topRight))
@@ -729,7 +735,8 @@ class ImageSketcherState extends State<ImageSketcher> {
                   ),
                 ),
               ),
-              if (!widget.isControllerOverlay &&
+              if (widget.enableToolbar &&
+                  !widget.isControllerOverlay &&
                   (widget.controllerPosition == Alignment.bottomLeft ||
                       widget.controllerPosition == Alignment.bottomCenter ||
                       widget.controllerPosition == Alignment.bottomRight))
@@ -755,7 +762,7 @@ class ImageSketcherState extends State<ImageSketcher> {
             ],
           ),
         ),
-        if (widget.isControllerOverlay)
+        if (widget.enableToolbar && widget.isControllerOverlay)
           Align(
             alignment: widget.controllerPosition,
             child: _buildControls(
@@ -1048,6 +1055,53 @@ class ImageSketcherState extends State<ImageSketcher> {
     });
   }
 
+  void updateColor(Color color) {
+    _controller.value = _controller.value.copyWith(color: color);
+    if (widget.onColorChanged != null) {
+      widget.onColorChanged!(color);
+    }
+  }
+
+  void changePaintMode(PaintMode mode) {
+    if (widget.onPaintModeChanged != null) {
+      widget.onPaintModeChanged!(mode);
+    }
+    _controller.value = _controller.value.copyWith(mode: mode);
+  }
+
+  void changeBrushWidth(double value){
+    _controller.value = _controller.value.copyWith(strokeWidth: value);
+    if (widget.onStrokeWidthChanged != null) {
+      widget.onStrokeWidthChanged!(value);
+    }
+  }
+
+  void addText(String text){
+    setState(() {
+      _controller.value = _controller.value.copyWith(mode: PaintMode.text);
+      final fontSize = 6 * _controller.value.strokeWidth;
+      _addPaintHistory(
+        PaintInfo(
+            mode: PaintMode.text,
+            text: text,
+            painter: _painter,
+            offset: []),
+      );
+    });
+  }
+
+  void clearAll() {
+    if (_paintHistory.isNotEmpty) {
+      setState(_paintHistory.clear);
+    }
+  }
+
+  void undo() {
+    if (_paintHistory.isNotEmpty) {
+      setState(_paintHistory.removeLast);
+    }
+  }
+
   Widget _buildControls({
     Color? controlBarColor,
     bool enableControlMode = true,
@@ -1123,16 +1177,14 @@ class ImageSketcherState extends State<ImageSketcher> {
             icon: widget.undoIcon ?? Icon(Icons.reply, color: Colors.grey[700]),
             onPressed: () {
               print(_paintHistory.length);
-              if (_paintHistory.isNotEmpty) {
-                setState(_paintHistory.removeLast);
-              }
+              undo();
             }),
       if (enableClear)
         IconButton(
           tooltip: textDelegate.clearAllProgress,
           icon:
               widget.clearAllIcon ?? Icon(Icons.clear, color: Colors.grey[700]),
-          onPressed: () => setState(_paintHistory.clear),
+          onPressed: () => clearAll(),
         ),
       if (customToolItems.isNotEmpty) ...customToolItems,
     ];

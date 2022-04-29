@@ -99,8 +99,39 @@ class _SketcherExampleState extends State<SketcherExample> {
         enableText: false,
         enableClear: false,
         enableColorSelection: false,
-        controllerHeight: 250,
+        enableUndo: false,
+        controllerHeight: 450,
         customToolItems: [
+          IconButton(
+            onPressed: () {
+              _imageKey.currentState?.clearAll();
+            },
+            icon: const Icon(Icons.clear),
+          ),
+          IconButton(
+            onPressed: () {
+              _imageKey.currentState?.undo();
+            },
+            icon: const Icon(Icons.undo),
+          ),
+          IconButton(
+            onPressed: () {
+              _imageKey.currentState?.changePaintMode(PaintMode.line);
+            },
+            icon: const Icon(Icons.mode_edit),
+          ),
+          IconButton(
+            onPressed: () {
+              _imageKey.currentState?.changeBrushWidth(50);
+            },
+            icon: const Icon(Icons.brush),
+          ),
+          IconButton(
+            onPressed: () {
+              _imageKey.currentState?.addText('Abcd');
+            },
+            icon: const Icon(Icons.text_fields),
+          ),
           IconButton(
             onPressed: saveImage,
             icon: const Icon(Icons.check),
