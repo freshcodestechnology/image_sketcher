@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Overview
-![demo!](https://raw.githubusercontent.com/freshcodestechnology/image_sketcher/master/preview/preview.gif)
+![demo!](https://raw.githubusercontent.com/freshcodestechnology/image_sketcher/master/preview/preview.mp4)
 
 ## Features
 
